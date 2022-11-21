@@ -1,0 +1,60 @@
+-- This will be covering INNER JOIN, FULL, LEFT, RIGHT OUTER JOIN
+-- A JOIN is a way to combine mutliple tables into a single output
+-- A JOIN needs to have a common column or key, it should be a unique field
+
+SELECT *
+FROM EmployeeDemographics
+
+SELECT *
+FROM EmployeeSalary
+
+SELECT *
+FROM EmployeeDemographics AS EmpDem
+INNER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+-- The INNER JOIN shows everything that is common in table A (EmpDem) and Table B (EmpSal)
+
+SELECT *
+FROM EmployeeDemographics AS EmpDem
+FULL OUTER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+-- A FULL OUTER JOIN shows everything that is both tables, even it doesn't match or has NULL values
+
+SELECT *
+FROM EmployeeDemographics AS EmpDem
+LEFT OUTER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+-- The LEFT OUTER JOIN shows everything in Table A (EmpDem) and only records that match in Table B (EmpSal)
+
+SELECT *
+FROM EmployeeDemographics AS EmpDem
+RIGHT OUTER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+-- The RIGHT OUTER JOIN shows everything in Table B (EmpSal) and only records that match in Table A (EmpDem)
+
+SELECT EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM EmployeeDemographics AS EmpDem
+INNER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+-- This returns an error becasue the EmployeeID is in both tables and it needs to be specified which want I want to be returned
+
+SELECT EmpDem.EmployeeID, FirstName, LastName, JobTitle, Salary
+FROM EmployeeDemographics AS EmpDem
+INNER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+-- It runs now, becasue I specified the table and also, it shows another example of how useful alising tables is
+
+SELECT JobTitle, Salary
+FROM EmployeeDemographics AS EmpDem
+INNER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+WHERE JobTitle = 'Trainer'
+-- This is anexample of how to query specific information using a JOIN
+
+SELECT JobTitle, AVG(Salary) AS AVGSalary
+FROM EmployeeDemographics AS EmpDem
+INNER JOIN EmployeeSalary AS EmpSal
+ON EmpDem.EmployeeID = EmpSal. EmployeeID
+WHERE JobTitle = 'Trainer'
+GROUP BY JobTitle
+-- This is anexample of how to query specific information using a JOIN and an aggregate function
